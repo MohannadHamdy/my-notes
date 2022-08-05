@@ -1,6 +1,6 @@
-import "./home.scss";
 import { motion } from "framer-motion";
 import { Typography } from "@mui/material";
+
 const homeContainer = {
   hidden: {
     x: "-100vw",
@@ -14,7 +14,7 @@ const homeContainer = {
     },
   },
 };
-const Home = () => {
+const Single = () => {
   return (
     <motion.div
       variants={homeContainer}
@@ -24,14 +24,14 @@ const Home = () => {
     >
       <div className="content">
         <Typography variant="h6" gutterBottom>
-          Notes List
+          Single
         </Typography>
         {/* {error && <p>{error}</p>}
-    {documents && <TransactionsList transactions={documents} />} */}
+{documents && <TransactionsList transactions={documents} />} */}
       </div>
       <div className="sidebar">{/* <TransactionForm uid={user.uid} /> */}</div>
     </motion.div>
   );
 };
 
-export default Home;
+export default Single;

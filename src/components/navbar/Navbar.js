@@ -2,8 +2,11 @@ import "./navbar.scss";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
+import { useLogout } from "../../hooks/useLogout";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 import { Link } from "react-router-dom";
 // import { useContext } from "react";
@@ -25,6 +28,9 @@ const navbarVariants = {
 };
 
 const Navbar = () => {
+  const { logout } = useLogout();
+  const { user } = useAuthContext();
+
   return (
     <motion.div
       variants={navbarVariants}
@@ -36,25 +42,47 @@ const Navbar = () => {
         <AppBar position="static">
           <Toolbar>
             <div className="logo">
-              <Link to="/">myMoney</Link>
+              <Link to="/">myNotes</Link>
             </div>
 
             <>
-              <Button
-                color="secondary"
-                variant="contained"
-                sx={{ marginRight: 3 }}
-              >
-                <Link to="/login">Login</Link>
-              </Button>
+              {user ? (
+                <>
+                  <Typography
+                    variant="body1"
+                    component="div"
+                    sx={{ marginRight: 3 }}
+                  >
+                    Welcome {user.displayName}
+                  </Typography>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    sx={{ marginRight: 3 }}
+                    onClick={logout}
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    sx={{ marginRight: 3 }}
+                  >
+                    <Link to="/login">Login</Link>
+                  </Button>
 
-              <Button
-                color="secondary"
-                variant="outlined"
-                sx={{ color: "#fff", borderColor: "#fff" }}
-              >
-                <Link to="/signup">Register</Link>
-              </Button>
+                  <Button
+                    color="secondary"
+                    variant="outlined"
+                    sx={{ color: "#fff", borderColor: "#fff" }}
+                  >
+                    <Link to="/register">Register</Link>
+                  </Button>
+                </>
+              )}
             </>
           </Toolbar>
         </AppBar>
